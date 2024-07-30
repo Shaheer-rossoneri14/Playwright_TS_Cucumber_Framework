@@ -1,4 +1,5 @@
 import { Locator } from '@playwright/test';
+import path from 'path';
 
 /**
  * A utility library for common UI actions using Playwright.
@@ -31,7 +32,7 @@ class UiActionsLib {
      * Perform a single keystroke.
      * 
      * @param webElement - The web element to perform the keystroke on.
-     * @param keystroke - The keystroke to be performed.
+     * @param keystroke - The keystroke to be performed. It can be shortcuts as well.
      */
     async singleKeystroke(webElement: Locator, keystroke: string): Promise<void> {
         console.log('Performing keystroke on element:', keystroke);
@@ -179,6 +180,78 @@ class UiActionsLib {
     async forceClickOnWebElement(webElement: Locator): Promise<void> {
         console.log('Force clicking on element:', webElement);
         await webElement.click({ force: true });
+    }
+
+    /**
+    * Upload a file to an input element.
+    * 
+    * @param webElement - The Locator of the input element.
+    * @param filePath - The path of the file to be uploaded.
+    */
+    async uploadSingleFile(webElement: Locator, filePath: string): Promise<void> {
+        console.log('Uploading the file:', filePath);
+        const absoluteFilePath = path.join(__dirname, filePath);
+        try {
+            await webElement.setInputFiles(absoluteFilePath);
+            console.log(`File "${absoluteFilePath}" uploaded successfully.`);
+        } catch (error) {
+            console.error(`Failed to upload file "${absoluteFilePath}":`, error);
+            throw error;
+        }
+    }
+
+    /**
+    * Upload multiple files to an input element.
+    * 
+    * @param webElement - The Locator of the input element.
+    * @param filePaths - An array of file paths to be uploaded.
+    */
+    async uploadMultipleFiles(webElement: Locator, filePaths: string[]): Promise<void> {
+        console.log('Uploading multiple files to input element:', webElement);
+        const absoluteFilePaths = filePaths.map(filePath => path.join(__dirname, filePath));
+        try {
+            await webElement.setInputFiles(absoluteFilePaths);
+            console.log(`Files "${absoluteFilePaths.join(', ')}" uploaded successfully.`);
+        } catch (error) {
+            console.error(`Failed to upload files "${absoluteFilePaths.join(', ')}":`, error);
+            throw error;
+        }
+    }
+
+
+    /**
+    * Upload a directory to an input element.
+    * 
+    * @param webElement - The Locator of the input element.
+    * @param directoryPath - The path of the directory to be uploaded.
+    */
+    async uploadDirectory(webElement: Locator, directoryPath: string): Promise<void> {
+        console.log('Uploading directory to input element:', webElement);
+        const absoluteDirectoryPath = path.join(__dirname, directoryPath);
+        try {
+            await webElement.setInputFiles(absoluteDirectoryPath);
+            console.log(`Directory "${absoluteDirectoryPath}" uploaded successfully.`);
+        } catch (error) {
+            console.error(`Failed to upload directory "${absoluteDirectoryPath}":`, error);
+            throw error;
+        }
+    }
+
+    /**
+    * Drag an item and drop it onto another element.
+    * 
+    * @param sourceLocator - The Locator of the item to be dragged.
+    * @param targetLocator - The Locator of the element where the item will be dropped.
+    */
+    async dragAndDrop(sourceLocator: Locator, targetLocator: Locator): Promise<void> {
+        console.log('Dragging item from:', sourceLocator, 'to:', targetLocator);
+        try {
+            await sourceLocator.dragTo(targetLocator);
+            console.log('Item dragged and dropped successfully.');
+        } catch (error) {
+            console.error('Failed to drag and drop item:', error);
+            throw error;
+        }
     }
 }
 
