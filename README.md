@@ -25,13 +25,13 @@ To get started with the framework, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone "repo url"
+   git clone https://github.com/Shaheer-rossoneri14/Playwright_TS_Cucumber_Framework.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd "project directory"
+   cd Playwright_TS_Cucumber_Framework
    ```
 
 3. Install the necessary dependencies:
