@@ -1,4 +1,4 @@
-import { chromium, firefox, webkit, LaunchOptions, Browser, BrowserType } from '@playwright/test';
+import { chromium, firefox, webkit, LaunchOptions, Browser } from '@playwright/test';
 import BrowserConstants from '../constants/BrowserConstants';
 
 const browserConstants = new BrowserConstants();
@@ -9,10 +9,21 @@ const browserOptions: LaunchOptions = {
     headless: false
 };
 
+/**
+ * Utility class for browser-related operations using Playwright.
+ */
 class BrowserUtils {
+
+    /**
+     * Launch a browser based on the BROWSER environment variable.
+     * 
+     * @returns A Promise that resolves to the launched Browser instance.
+     */
     async launchBrowser(): Promise<Browser> {
         const browserType = process.env.BROWSER;
         let browser: Browser;
+
+        // Launch the appropriate browser based on the environment variable
         if (browserType === browserConstants.getFirefox()) {
             browser = await firefox.launch(browserOptions);
         } else if (browserType === browserConstants.getWebkit()) {
@@ -20,6 +31,7 @@ class BrowserUtils {
         } else {
             browser = await chromium.launch(browserOptions);
         }
+
         return browser;
     }
 }
