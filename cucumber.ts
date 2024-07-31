@@ -1,17 +1,14 @@
-/**
- * Common Cucumber options used across different configurations.
- */
-const commonOptions = `
-    --require features/support/hooks.ts
-    --require features/step_definitions/**/*.ts
-`;
+import defineConfig from '@cucumber/cucumber';
 
-/**
- * Export Cucumber configurations.
- */
-module.exports = {
-    /**
-     * Default configuration that includes common options and all feature files.
-     */
-    default: `${commonOptions} features/*.feature`,
-};
+export default defineConfig({
+    // Define the feature files and step definitions location
+    features: ['./features/**/*.feature'],
+    stepDefinitions: ['./features/step_definitions/**/*.ts'],
+
+    // Define the output formats for the reports
+    format: [
+        'html:reports/cucumber-report.html',
+        'json:reports/cucumber_report.json',
+    ],
+    // Configure other settings if needed
+});

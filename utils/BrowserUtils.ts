@@ -1,5 +1,9 @@
 import { chromium, firefox, webkit, LaunchOptions, Browser } from '@playwright/test';
 import BrowserConstants from '../constants/BrowserConstants';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const browserConstants = new BrowserConstants();
 
@@ -21,7 +25,8 @@ class BrowserUtils {
      * @returns A Promise that resolves to the launched Browser instance.
      */
     async launchBrowser(): Promise<Browser> {
-        const browserType = process.env.BROWSER;
+        const browserType = process.env.BROWSER || "chromium";
+        console.log(`Launching browser: ${browserType}`);
         let browser: Browser;
 
         // Launch the appropriate browser based on the environment variable

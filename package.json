@@ -1,18 +1,22 @@
 {
   "name": "playwright_cucumber_framework",
   "version": "1.0.0",
-  "description": "",
+  "description": "A ready to use Test Automation Framework using cucumber, playwright and typescript",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit"
+    "test-chrome": "cross-env BROWSER=chromium npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-firefox": "cross-env BROWSER=firefox npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-webkit": "cross-env BROWSER=webkit npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-edge": "cross-env BROWSER=msedge npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit"
   },
-  "keywords": [],
+  "keywords": ["cucumber", "playwright", "BDD", "typescript"],
   "author": "Shaheer Hasan",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.0.0",
+    "cross-env": "^7.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
@@ -23,6 +27,7 @@
     "allure-playwright": "^3.0.0-beta.7",
     "chai": "^5.1.1",
     "cucumber-html-reporter": "^7.1.1",
+    "dotenv": "^16.4.5",
     "js-yaml": "^4.1.0",
     "multiple-cucumber-html-reporter": "^3.7.0"
   }

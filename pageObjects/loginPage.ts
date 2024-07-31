@@ -1,5 +1,9 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import UiActionsLib from '../utils/uiActionsLib';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 /**
  * Represents the login page of the application.
@@ -42,8 +46,10 @@ export class LoginPage {
      * @returns {Promise<void>} - A promise that resolves when the navigation and wait are complete.
      */
     async goTo() {
-        await this.page.goto('https://the-internet.herokuapp.com/login'); // Navigate to the login page
-        await this.page.waitForSelector("#username"); // Wait for the username field to be visible
+        const baseUrl = process.env.BASE_URL;
+        await this.page.goto(`${baseUrl}/login`);
+        // await this.page.goto('https://the-internet.herokuapp.com/login'); // Navigate to the login page
+        // await this.page.waitForSelector("#username"); // Wait for the username field to be visible
     }
 
     /**

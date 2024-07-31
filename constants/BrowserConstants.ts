@@ -1,31 +1,26 @@
 /**
- * Constants representing different browser types.
+ * Constants for browser types.
  */
 class BrowserConstants {
-    public readonly FIREFOX: string;
-    public readonly WEBKIT: string;
+    private readonly firefox = 'firefox';
+    private readonly webkit = 'webkit';
+    private readonly chromium = 'chromium';
+    private readonly msedge = 'msedge';
 
-    constructor() {
-        this.FIREFOX = "firefox";
-        this.WEBKIT = "webkit";
+    getFirefox() {
+        return this.firefox;
     }
 
-    /**
-     * Get the constant for Firefox.
-     * 
-     * @returns The string "firefox".
-     */
-    getFirefox(): string {
-        return this.FIREFOX;
+    getWebkit() {
+        return this.webkit;
     }
 
-    /**
-     * Get the constant for WebKit.
-     * 
-     * @returns The string "webkit".
-     */
-    getWebkit(): string {
-        return this.WEBKIT;
+    getChromium() {
+        return this.chromium;
+    }
+
+    getMsEdge() {
+        return this.msedge;
     }
 }
 
