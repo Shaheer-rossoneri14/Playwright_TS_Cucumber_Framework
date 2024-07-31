@@ -3,6 +3,7 @@ import BrowserConstants from '../constants/BrowserConstants';
 
 const browserConstants = new BrowserConstants();
 
+/** slowMo: Adds a specified delay(in milliseconds) after each browser action. */
 const browserOptions: LaunchOptions = {
     slowMo: 50,
     args: ['--start-maximized', '--disable-extensions', '--disable-plugins'],

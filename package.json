@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test1": "npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test": "npx cucumber-js --require-module ts-node/register --config cucumber.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Shaheer Hasan",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
-    "@types/node": "^22.0.0"
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@cucumber/cucumber": "^10.8.0",

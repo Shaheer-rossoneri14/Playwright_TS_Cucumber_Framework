@@ -3,7 +3,7 @@
  */
 const commonOptions = `
     --require features/support/hooks.ts
-    --require features/step_definitions/**/*.steps.ts
+    --require features/step_definitions/**/*.ts
 `;
 
 /**
@@ -13,5 +13,5 @@ module.exports = {
     /**
      * Default configuration that includes common options and all feature files.
      */
-    default: `${commonOptions} features/**/*.feature`,
+    default: `${commonOptions} features/*.feature`,
 };
