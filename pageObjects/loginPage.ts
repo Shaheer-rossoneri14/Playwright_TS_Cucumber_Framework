@@ -17,6 +17,8 @@ export class LoginPage {
     userName: Locator;
     password: Locator;
     loginFlashAlert: Locator;
+    logoutFlashAlert: Locator;
+    logoutBtn: Locator;
 
     /**
      * Constructs a new instance of the LoginPage class.
@@ -28,8 +30,10 @@ export class LoginPage {
         this.UIHelper = new UiActionsLib(); // Initialize the UI action helper
         this.userName = page.locator("[id='username']"); // Locator for username input field
         this.password = page.locator("[id='password']"); // Locator for password input field
-        this.loginBtn = page.locator("button[type='submit']"); // Locator for login button
+        this.loginBtn = page.locator("button:has-text('Login')"); // Locator for login button
+        this.logoutBtn = page.locator("a:has-text('Logout')"); // Locator for logout button
         this.loginFlashAlert = page.locator("div[id='flash']"); // Locator for login flash alert message
+        this.logoutFlashAlert = page.locator("div[id='flash']"); // Locator for logout flash alert message
     }
 
     /**
@@ -67,4 +71,38 @@ export class LoginPage {
         const loginMessage = await this.loginFlashAlert.textContent(); // Get the text content of the flash alert
         await expect(loginMessage).toContain(expectedMessage); // Verify that the flash alert contains the expected message
     }
+
+    /**
+ * Validates that the user is logged in by checking if the current URL ends with 'secure'.
+ * 
+ * @returns {Promise<void>} - A promise that resolves when the URL validation is complete.
+ */
+    async validateUserIsLoggedIn() {
+        const currentUrl = this.page.url(); // Get the current URL
+        await expect(currentUrl).toMatch(/secure$/); // Verify that the URL ends with 'secure'
+    }
+
+    /**
+     * Validates that the user is logged out by checking the flash alert message and if the current URL ends with 'login'.
+     * 
+     * @param expectedMessage - The message expected to be contained in the flash alert.
+     * 
+     * @returns {Promise<void>} - A promise that resolves when the validation is complete.
+     */
+    async validateUserIsLoggedOut(expectedMessage: string) {
+        const logoutMessage = await this.logoutFlashAlert.textContent(); // Get the text content of the flash alert
+        await expect(logoutMessage).toContain(expectedMessage); // Verify that the flash alert contains the expected message
+        const currentUrl = this.page.url(); // Get the current URL
+        await expect(currentUrl).toMatch(/login$/); // Verify that the URL ends with 'login'
+    }
+
+    /**
+     * Clicks the logout button.
+     * 
+     * @returns {Promise<void>} - A promise that resolves when the logout button is clicked.
+     */
+    async clickLogoutButton() {
+        await this.UIHelper.singleClickOnWebElement(this.logoutBtn); // Click the logout button
+    }
+
 }
