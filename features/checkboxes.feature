@@ -1,3 +1,4 @@
+@ui
 Feature: Checkbox functionality on The Internet Guinea Pig Website
 
     Scenario: As a user, I can select checkboxes

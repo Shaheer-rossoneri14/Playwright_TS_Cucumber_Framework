@@ -4,10 +4,11 @@
   "description": "A ready to use Test Automation Framework using cucumber, playwright and typescript",
   "main": "index.js",
   "scripts": {
-    "test-chrome": "cross-env BROWSER=chromium npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
-    "test-firefox": "cross-env BROWSER=firefox npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
-    "test-webkit": "cross-env BROWSER=webkit npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
-    "test-edge": "cross-env BROWSER=msedge npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit"
+    "test-ui-chrome": "cross-env BROWSER=chromium npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-ui-firefox": "cross-env BROWSER=firefox npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-ui-webkit": "cross-env BROWSER=webkit npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-ui-edge": "cross-env BROWSER=msedge npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
+    "test-api": "cross-env npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/apiSteps.ts --tags '@api' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit"
   },
   "keywords": ["cucumber", "playwright", "BDD", "typescript"],
   "author": "Shaheer Hasan",

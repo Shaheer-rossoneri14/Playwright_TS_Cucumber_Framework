@@ -1,3 +1,4 @@
+@ui
 Feature: Input functionality of The Internet Guinea Pig Website Input 
     
     Scenario Outline: As a user, I can enter the numbers into the input box

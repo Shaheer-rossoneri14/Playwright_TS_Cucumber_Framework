@@ -1,7 +1,12 @@
 import { Given, When, Then, Before } from '@cucumber/cucumber';
 import PoManager from '../../pageObjects/poManager';
 import { CustomWorld } from '../support/hooks'; 
+import * as fs from 'fs';
+import * as path from 'path';
+import ApiActionLib from '../../utils/apiActionsLib';
 
+
+/**UI Steps */
 // Store a single instance of PoManager in the world context
 Before(async function(this: CustomWorld) {
     this.poManager = new PoManager(this.page);
@@ -64,3 +69,60 @@ Then(/^I enter (.+) into input box$/, async function (this: CustomWorld, data: s
     await this.poManager.getInputPage().actionsAndValidationsOnInputBox(data);
     
 })
+
+/**API steps */
+// Define a variable to store the API library instance
+let apiLib: ApiActionLib;
+let requestData: any;
+let response: any;
+
+// Function to load JSON file
+const loadJSONFile = (filePath: string): any => {
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(fileContents);
+};
+
+// Initialize the API library before all tests
+Given(/^a valid JSON file (.+)$/, async function (filePath: string) {
+    requestData = loadJSONFile(path.resolve('testdata', filePath));
+});
+
+// Perform API request based on the method and endpoint
+When(/^I send a (.+) request to (.+)$/, async function (method: string, endpoint: string) {
+    switch (method.toUpperCase()) {
+        case 'GET':
+            response = await apiLib.getRequest(endpoint);
+            break;
+        case 'POST':
+            response = await apiLib.postRequest(endpoint, requestData);
+            break;
+        case 'PUT':
+            response = await apiLib.putRequest(endpoint, requestData);
+            break;
+        case 'PATCH':
+            response = await apiLib.patchRequest(endpoint, requestData);
+            break;
+        case 'DELETE':
+            response = await apiLib.deleteRequest(endpoint);
+            break;
+        default:
+            throw new Error(`Unsupported request method: ${method}`);
+    }
+});
+
+// Validate the response status code
+Then(/^the response status code should be (.+)$/, async function (expectedStatusCode: number) {
+    if (!response) {
+        throw new Error('No response found. Ensure a request was made.');
+    }
+    await apiLib.validateHTTPResponseCode(expectedStatusCode);
+});
+
+// Validate the response data
+Then(/^the response data should match the expected data in (.+)$/, async function (expectedDataFile: string) {
+    if (!response) {
+        throw new Error('No response found. Ensure a request was made.');
+    }
+    const expectedData = loadJSONFile(path.resolve('testdata', expectedDataFile));
+    await apiLib.validateResponseData(expectedData);
+});
