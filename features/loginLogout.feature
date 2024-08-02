@@ -21,3 +21,4 @@ Feature: The Login and Logout functionality of Internet Guinea Pig Website
         | username  | password             | failedloginmessage        |
         | tomsmith  | password123          | Your password is invalid! |
         | adamsmith | SuperSecretPassword! | Your username is invalid! |
+        | tomsmith  | SuperSecretPassword! | Your username is invalid! |

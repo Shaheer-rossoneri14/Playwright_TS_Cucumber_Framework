@@ -1,7 +1,9 @@
-import { Before, After, setWorldConstructor } from '@cucumber/cucumber';
+import { Before, After, setWorldConstructor, Status } from '@cucumber/cucumber';
 import { Page, Browser } from '@playwright/test';
 import BrowserUtils from '../../utils/browserUtils'; // Adjust path as necessary
 import PoManager from '../../pageObjects/poManager';
+import path from 'path';
+import fs from 'fs';
 
 // Set the default timeout for all hooks and steps
 import { setDefaultTimeout } from '@cucumber/cucumber';
@@ -12,6 +14,7 @@ export class CustomWorld {
     public page!: Page;
     public browser!: Browser;
     public poManager!: PoManager; 
+    static result: any;
 }
 
 // Set the World Constructor
@@ -26,7 +29,21 @@ Before(async function (this: CustomWorld) {
 });
 
 // Close page and browser after each scenario
-After(async function (this: CustomWorld) {
+After(async function (this: CustomWorld, scenario) {
+    // Check if the scenario has failed
+    if (scenario.result?.status === Status.FAILED) {
+        // Create a unique file name for the screenshot
+        const screenshotPath = path.join('screenshots', `screenshot-${Date.now()}.png`);
+        // Ensure the screenshots directory exists
+        if (!fs.existsSync('screenshots')) {
+            fs.mkdirSync('screenshots');
+        }
+        // Capture and save the screenshot
+        await this.page.screenshot({ path: screenshotPath });
+        console.log(`Screenshot saved at: ${screenshotPath}`);
+    }
+
+    // Close the page and browser
     await this.page.close();
     await this.browser.close();
 });
