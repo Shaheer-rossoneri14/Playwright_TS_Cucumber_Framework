@@ -5,6 +5,7 @@ import PoManager from '../../pageObjects/poManager';
 import path from 'path';
 import fs from 'fs';
 import * as dotenv from 'dotenv';
+import ApiActionLib from '../../utils/apiActionsLib'; // Import ApiActionLib
 
 // Load environment variables from .env file
 dotenv.config();
@@ -17,9 +18,11 @@ setDefaultTimeout(60 * 1000); // 60 seconds
 export class CustomWorld {
     public page!: Page;
     public browser!: Browser;
-    public poManager!: PoManager; 
+    public poManager!: PoManager;
     public apiRequestContext!: APIRequestContext;
-    static result: any;
+    public apiLib!: ApiActionLib; // Add apiLib to CustomWorld
+    public response: any;
+    public responseData: any;
 }
 
 // Set the World Constructor
@@ -33,13 +36,15 @@ Before({ tags: '@ui' }, async function (this: CustomWorld) {
     this.poManager = new PoManager(this.page);
 });
 
-// Initialize API request context before each API scenario
+// Initialize API request context and ApiActionLib before each API scenario
 Before({ tags: '@api' }, async function (this: CustomWorld) {
+    console.log('Initializing API context');
     const baseURL = process.env.BASE_URL_API;
     if (!baseURL) {
         throw new Error('BASE_URL environment variable is not set');
     }
     this.apiRequestContext = await request.newContext({ baseURL });
+    this.apiLib = new ApiActionLib(this.apiRequestContext); // Initialize apiLib
 });
 
 // Save screenshot if UI scenario failed, Close page and browser after each UI scenario

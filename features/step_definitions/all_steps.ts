@@ -1,19 +1,12 @@
-import { Given, When, Then, Before } from '@cucumber/cucumber';
+import { Given, When, Then } from '@cucumber/cucumber';
 import PoManager from '../../pageObjects/poManager';
-import { CustomWorld } from '../support/hooks'; 
+import { CustomWorld } from '../support/hooks';
 import * as fs from 'fs';
 import * as path from 'path';
-import ApiActionLib from '../../utils/apiActionsLib';
-
 
 /**UI Steps */
 // Store a single instance of PoManager in the world context
-Before(async function(this: CustomWorld) {
-    this.poManager = new PoManager(this.page);
-});
-
-// Given Steps
-Given(/^I am on the (.*) page$/, async function(this: CustomWorld, pageName: string) {
+Given(/^I am on the (.*) page$/, async function (this: CustomWorld, pageName: string) {
     const poManager = this.poManager;
 
     // Navigate to the correct page based on the value
@@ -39,7 +32,7 @@ Given(/^I am on the (.*) page$/, async function(this: CustomWorld, pageName: str
 });
 
 // When Steps
-When(/^I login with (.+) and (.+)$/, async function(this: CustomWorld, username: string, password: string) {
+When(/^I login with (.+) and (.+)$/, async function (this: CustomWorld, username: string, password: string) {
     await this.poManager.getLoginPage().validLogin(username, password);
 });
 
@@ -47,9 +40,8 @@ When(/^I click on the Logout button$/, async function (this: CustomWorld) {
     await this.poManager.getLoginPage().clickLogoutButton();
 })
 
-
-//Then Steps
-Then(/^I should see a flash message saying (.*)$/, async function(this: CustomWorld, loginmessage: string) {
+// Then Steps
+Then(/^I should see a flash message saying (.*)$/, async function (this: CustomWorld, loginmessage: string) {
     await this.poManager.getLoginPage().verifyLoginMessage(loginmessage);
 });
 
@@ -67,62 +59,60 @@ Then(/^I perform actions and validate the dropdown$/, async function (this: Cust
 
 Then(/^I enter (.+) into input box$/, async function (this: CustomWorld, data: string) {
     await this.poManager.getInputPage().actionsAndValidationsOnInputBox(data);
-    
 })
 
 /**API steps */
 // Define a variable to store the API library instance
-let apiLib: ApiActionLib;
 let requestData: any;
-let response: any;
 
-// Function to load JSON file
 const loadJSONFile = (filePath: string): any => {
     const fileContents = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(fileContents);
 };
 
-// Initialize the API library before all tests
-Given(/^a valid JSON file (.+)$/, async function (filePath: string) {
+Given(/^a valid JSON file (.+)$/, async function (this: CustomWorld, filePath: string) {
     requestData = loadJSONFile(path.resolve('testdata', filePath));
 });
 
-// Perform API request based on the method and endpoint
-When(/^I send a (.+) request to (.+)$/, async function (method: string, endpoint: string) {
+When(/^I send a (.+) request to (.+)$/, async function (this: CustomWorld, method: string, endpoint: string) {
+    if (!this.apiLib) {
+        throw new Error('apiLib is not initialized. Ensure it is set up correctly in the Before hook.');
+    }
+
     switch (method.toUpperCase()) {
         case 'GET':
-            response = await apiLib.getRequest(endpoint);
+            this.response = await this.apiLib.getRequest(endpoint);
+            console.log("response is:", this.response);
             break;
         case 'POST':
-            response = await apiLib.postRequest(endpoint, requestData);
+            this.response = await this.apiLib.postRequest(endpoint, requestData);
             break;
         case 'PUT':
-            response = await apiLib.putRequest(endpoint, requestData);
+            this.response = await this.apiLib.putRequest(endpoint, requestData);
             break;
         case 'PATCH':
-            response = await apiLib.patchRequest(endpoint, requestData);
+            this.response = await this.apiLib.patchRequest(endpoint, requestData);
             break;
         case 'DELETE':
-            response = await apiLib.deleteRequest(endpoint);
+            this.response = await this.apiLib.deleteRequest(endpoint);
             break;
         default:
             throw new Error(`Unsupported request method: ${method}`);
     }
 });
 
-// Validate the response status code
-Then(/^the response status code should be (.+)$/, async function (expectedStatusCode: number) {
-    if (!response) {
+Then(/^the response status code should be (.+)$/, async function (this: CustomWorld, expectedStatusCode: string) {
+    const expectedCode = parseInt(expectedStatusCode, 10);
+    if (!this.response) {
         throw new Error('No response found. Ensure a request was made.');
     }
-    await apiLib.validateHTTPResponseCode(expectedStatusCode);
+    await this.apiLib.validateHTTPResponseCode(expectedCode);
 });
 
-// Validate the response data
-Then(/^the response data should match the expected data in (.+)$/, async function (expectedDataFile: string) {
-    if (!response) {
+Then(/^the response data should match the expected data in (.+)$/, async function (this: CustomWorld, expectedDataFile: string) {
+    if (!this.response) {
         throw new Error('No response found. Ensure a request was made.');
     }
     const expectedData = loadJSONFile(path.resolve('testdata', expectedDataFile));
-    await apiLib.validateResponseData(expectedData);
+    await this.apiLib.validateResponseData(expectedData);
 });

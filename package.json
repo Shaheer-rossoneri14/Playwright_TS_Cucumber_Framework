@@ -8,13 +8,19 @@
     "test-ui-firefox": "cross-env BROWSER=firefox npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
     "test-ui-webkit": "cross-env BROWSER=webkit npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
     "test-ui-edge": "cross-env BROWSER=msedge npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
-    "test-api": "cross-env npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/apiSteps.ts --tags '@api' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit"
+    "test-api": "npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@api'"
   },
-  "keywords": ["cucumber", "playwright", "BDD", "typescript"],
+  "keywords": [
+    "cucumber",
+    "playwright",
+    "BDD",
+    "typescript"
+  ],
   "author": "Shaheer Hasan",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
+    "@types/chai": "^4.3.17",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.0.0",
     "cross-env": "^7.0.3",
