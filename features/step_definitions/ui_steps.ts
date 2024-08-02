@@ -13,7 +13,11 @@ Given(/^I am on the login page$/, async function(this: CustomWorld) {
 });
 
 Given(/^I am on the secure page$/, async function (this: CustomWorld) {
-    await this,this.poManager.getLoginPage().validateUserIsLoggedIn();
+    await this.poManager.getLoginPage().validateUserIsLoggedIn();
+})
+
+Given(/^I am on the checkbox page$/, async function (this: CustomWorld) {
+    await this.poManager.getCheckBoxPage().goTo();
 })
 
 
@@ -34,4 +38,8 @@ Then(/^I should see a flash message saying (.*)$/, async function(this: CustomWo
 
 Then(/^I should be navigated to the login page and I should see a flash message saying (.*)$/, async function (this: CustomWorld, logoutmessage: string) {
     await this.poManager.getLoginPage().validateUserIsLoggedOut(logoutmessage);
+})
+
+Then(/^I perform actions and validate the checkboxes$/, async function (this: CustomWorld) {
+    await this.poManager.getCheckBoxPage().actionsAndValidationsOnCheckboxes();
 })

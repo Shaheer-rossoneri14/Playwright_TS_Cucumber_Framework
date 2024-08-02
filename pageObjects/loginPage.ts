@@ -48,8 +48,7 @@ export class LoginPage {
     async goTo() {
         const baseUrl = process.env.BASE_URL;
         await this.page.goto(`${baseUrl}/login`);
-        // await this.page.goto('https://the-internet.herokuapp.com/login'); // Navigate to the login page
-        // await this.page.waitForSelector("#username"); // Wait for the username field to be visible
+        await this.page.waitForSelector("#username"); // Wait for the username field to be visible
     }
 
     /**
