@@ -39,7 +39,7 @@ export class CheckBoxPage {
      * @returns {Promise<void>} - A promise that resolves when the navigation and wait are complete.
      */
     async goTo() {
-        const baseUrl = process.env.BASE_URL;
+        const baseUrl = process.env.BASE_URL_UI;
         await this.page.goto(`${baseUrl}/checkboxes`);
         await this.page.waitForSelector("//h3[text() = 'Checkboxes']"); // Wait for the heading to be visible
     }

@@ -1,6 +1,8 @@
 import { Page } from "@playwright/test";
 import { LoginPage } from "./loginPage";
 import { CheckBoxPage } from "./checkboxPage";
+import { DropDownPage } from "./dropdownPage";
+import { InputPage } from "./inputPage";
 
 /**
  * Page Object Manager (PoManager) class.
@@ -12,7 +14,9 @@ class PoManager {
 
     // Page object for the pages
     loginPage: LoginPage;
-    checkboxPage: CheckBoxPage
+    checkboxPage: CheckBoxPage;
+    dropdownPage: DropDownPage;
+    inputPage: InputPage;
 
     /**
      * Constructs a new instance of the PoManager class.
@@ -23,6 +27,8 @@ class PoManager {
         this.page = page; // Assign the Page object
         this.loginPage = new LoginPage(this.page); // Initialize the LoginPage object
         this.checkboxPage = new CheckBoxPage(this.page); // Initialize the CheckBoxPage object
+        this.dropdownPage = new DropDownPage(this.page); // Initialize the DropDownPage object
+        this.inputPage = new InputPage(this.page); // Initialize the InputPage object
     }
 
     /**
@@ -43,6 +49,23 @@ class PoManager {
         return this.checkboxPage; // Return the checkboxPage object
     }
 
+    /**
+     * Provides access to the DropDownPage object.
+     * 
+     * @returns {DropDownPage} - The DropDownPage object associated with the current page.
+     */
+    getDropDownPage() {
+        return this.dropdownPage; // Return the checkboxPage object
+    }
+
+    /**
+     * Provides access to the InputPage object.
+     * 
+     * @returns {InputPage} - The InputPage object associated with the current page.
+     */
+    getInputPage() {
+        return this.inputPage; // Return the checkboxPage object
+    }
 }
 
 export default PoManager;

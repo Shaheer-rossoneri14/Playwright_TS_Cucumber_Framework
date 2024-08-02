@@ -46,7 +46,7 @@ export class LoginPage {
      * @returns {Promise<void>} - A promise that resolves when the navigation and wait are complete.
      */
     async goTo() {
-        const baseUrl = process.env.BASE_URL;
+        const baseUrl = process.env.BASE_URL_UI;
         await this.page.goto(`${baseUrl}/login`);
         await this.page.waitForSelector("#username"); // Wait for the username field to be visible
     }

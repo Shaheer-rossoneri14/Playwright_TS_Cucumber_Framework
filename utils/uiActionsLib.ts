@@ -82,6 +82,17 @@ class UiActionsLib {
     }
 
     /**
+     * Retrieve the text content of a input element.
+     * 
+     * @param webElement - The web element to get text from.
+     * @returns The text content of the web element.
+     */
+    async getAllTextOfInputElement(webElement: Locator): Promise<string | null> {
+        console.log('Retrieving text content of element:', webElement);
+        return await webElement.inputValue();
+    }
+
+    /**
      * Select a dropdown option by its value attribute.
      * 
      * @param webElement - The dropdown element.

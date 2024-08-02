@@ -28,7 +28,7 @@ Before(async function (this: CustomWorld) {
     this.poManager = new PoManager(this.page);
 });
 
-// Close page and browser after each scenario
+// Save screenshot if scenario failed, Close page and browser after each scenario
 After(async function (this: CustomWorld, scenario) {
     // Check if the scenario has failed
     if (scenario.result?.status === Status.FAILED) {

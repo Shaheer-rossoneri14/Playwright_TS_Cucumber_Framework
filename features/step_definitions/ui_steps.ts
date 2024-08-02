@@ -8,18 +8,30 @@ Before(async function(this: CustomWorld) {
 });
 
 // Given Steps
-Given(/^I am on the login page$/, async function(this: CustomWorld) {
-    await this.poManager.getLoginPage().goTo();
+Given(/^I am on the (.*) page$/, async function(this: CustomWorld, pageName: string) {
+    const poManager = this.poManager;
+
+    // Navigate to the correct page based on the value
+    switch (pageName.toLowerCase()) {
+        case 'login':
+            await poManager.getLoginPage().goTo();
+            break;
+        case 'secure':
+            await poManager.getLoginPage().validateUserIsLoggedIn();
+            break;
+        case 'checkbox':
+            await poManager.getCheckBoxPage().goTo();
+            break;
+        case 'dropdown':
+            await poManager.getDropDownPage().goTo();
+            break;
+        case 'input':
+            await poManager.getInputPage().goTo();
+            break;
+        default:
+            throw new Error(`Page "${pageName}" is not defined in step definitions.`);
+    }
 });
-
-Given(/^I am on the secure page$/, async function (this: CustomWorld) {
-    await this.poManager.getLoginPage().validateUserIsLoggedIn();
-})
-
-Given(/^I am on the checkbox page$/, async function (this: CustomWorld) {
-    await this.poManager.getCheckBoxPage().goTo();
-})
-
 
 // When Steps
 When(/^I login with (.+) and (.+)$/, async function(this: CustomWorld, username: string, password: string) {
@@ -42,4 +54,13 @@ Then(/^I should be navigated to the login page and I should see a flash message 
 
 Then(/^I perform actions and validate the checkboxes$/, async function (this: CustomWorld) {
     await this.poManager.getCheckBoxPage().actionsAndValidationsOnCheckboxes();
+})
+
+Then(/^I perform actions and validate the dropdown$/, async function (this: CustomWorld) {
+    await this.poManager.getDropDownPage().actionsAndValidationsOnDropdown();
+})
+
+Then(/^I enter (.+) into input box$/, async function (this: CustomWorld, data: string) {
+    await this.poManager.getInputPage().actionsAndValidationsOnInputBox(data);
+    
 })
