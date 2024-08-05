@@ -8,7 +8,7 @@
     "test-ui-firefox": "cross-env BROWSER=firefox npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
     "test-ui-webkit": "cross-env BROWSER=webkit npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
     "test-ui-edge": "cross-env BROWSER=msedge npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@ui' --format html:reports/cucumber-report.html --format json:reports/cucumber_report.json --exit",
-    "test-api": "npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@api'"
+    "test-api": "cross-env BROWSER=msedge npx cucumber-js --require-module ts-node/register --require features/support/hooks.ts --require features/step_definitions/**/*.ts --tags '@api'"
   },
   "keywords": [
     "cucumber",
