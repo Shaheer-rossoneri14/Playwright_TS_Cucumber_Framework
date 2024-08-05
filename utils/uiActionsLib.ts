@@ -29,6 +29,16 @@ class UiActionsLib {
     }
 
     /**
+      * Clear text from an input field.
+      * 
+      * @param webElement - The web element to clear text from.
+      */
+    async clearTextFromInput(webElement: Locator): Promise<void> {
+        console.log('Clearing text from input element:', webElement);
+        await webElement.fill('');
+    }
+
+    /**
      * Perform a single keystroke.
      * 
      * @param webElement - The web element to perform the keystroke on.
@@ -264,6 +274,64 @@ class UiActionsLib {
             throw error;
         }
     }
+
+    /**
+    * Waiting for the element to be visible.
+    * 
+    * @param sourceLocator - The Locator of the element to be waited for.
+    */
+    async waitForElementToBeVisible(webElement: Locator, timeout: number = 30000): Promise<void> {
+        console.log('Waiting for element to be visible:', webElement);
+        await webElement.waitFor({ state: 'visible', timeout });
+    }
+
+    /**
+    * Waiting for the element to be hidden.
+    * 
+    * @param sourceLocator - The Locator of the element to be hidden.
+    */
+    async waitForElementToBeHidden(webElement: Locator, timeout: number = 30000): Promise<void> {
+        console.log('Waiting for element to be hidden:', webElement);
+        await webElement.waitFor({ state: 'hidden', timeout });
+    }
+
+    /**
+    * Scroll to an element on the page.
+    * 
+    * @param webElement - The web element to scroll to.
+    */
+    async scrollToWebElement(webElement: Locator): Promise<void> {
+        console.log('Scrolling to element:', webElement);
+        await webElement.scrollIntoViewIfNeeded();
+    }
+
+    /**
+    * Retrieve the value of a specified attribute from an element.
+    * 
+    * @param webElement - The web element from which to get the attribute value.
+    * @param attribute - The name of the attribute to retrieve.
+    * @returns The value of the specified attribute.
+    */
+    async getAttributeValue(webElement: Locator, attribute: string): Promise<string | null> {
+        console.log('Getting attribute value:', attribute, 'from element:', webElement);
+        return await webElement.getAttribute(attribute);
+    }
+
+    /**
+    * Assert that the text content of an element matches the expected text.
+    * 
+    * @param webElement - The web element to check the text of.
+    * @param expectedText - The expected text content.
+    * @throws An error if the actual text does not match the expected text.
+    */
+    async assertElementText(webElement: Locator, expectedText: string): Promise<void> {
+        console.log('Asserting text of element:', webElement);
+        const actualText = await webElement.textContent();
+        if (actualText !== expectedText) {
+            throw new Error(`Expected text: "${expectedText}", but got: "${actualText}"`);
+        }
+    }
+
 }
 
 export default UiActionsLib;

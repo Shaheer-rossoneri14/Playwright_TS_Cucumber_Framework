@@ -62,7 +62,6 @@ Then(/^I enter (.+) into input box$/, async function (this: CustomWorld, data: s
 })
 
 /**API steps */
-// Define a variable to store the API library instance
 let requestData: any;
 
 const loadJSONFile = (filePath: string): any => {
