@@ -1,11 +1,11 @@
 import { Before, After, setWorldConstructor, Status } from '@cucumber/cucumber';
 import { Page, Browser, request, APIRequestContext } from '@playwright/test';
-import BrowserUtils from '../../utils/browserUtils'; // Adjust path as necessary
+import BrowserUtils from '../../utils/browserUtils';
 import PoManager from '../../pageObjects/poManager';
 import path from 'path';
 import fs from 'fs';
 import * as dotenv from 'dotenv';
-import ApiActionLib from '../../utils/apiActionsLib'; // Import ApiActionLib
+import ApiActionLib from '../../utils/apiActionsLib'; 
 
 // Load environment variables from .env file
 dotenv.config();
@@ -20,7 +20,7 @@ export class CustomWorld {
     public browser!: Browser;
     public poManager!: PoManager;
     public apiRequestContext!: APIRequestContext;
-    public apiLib!: ApiActionLib; // Add apiLib to CustomWorld
+    public apiLib!: ApiActionLib; 
     public response: any;
     public responseData: any;
 }
@@ -44,7 +44,7 @@ Before({ tags: '@api' }, async function (this: CustomWorld) {
         throw new Error('BASE_URL environment variable is not set');
     }
     this.apiRequestContext = await request.newContext({ baseURL });
-    this.apiLib = new ApiActionLib(this.apiRequestContext); // Initialize apiLib
+    this.apiLib = new ApiActionLib(this.apiRequestContext);
 });
 
 // Save screenshot if UI scenario failed, Close page and browser after each UI scenario
