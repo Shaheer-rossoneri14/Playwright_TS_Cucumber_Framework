@@ -55,10 +55,10 @@ export class InputPage {
         console.log(valueEntered1);
 
         //Validate data entered is same as expected data
-        await expect(valueEntered1).toBe(data);
+        await this.UIHelper.assertElementText(this.inputbox, data)
         
         // Clear the input box
-        await this.inputbox.fill(''); 
+        await this.UIHelper.clearTextFromInput(this.inputbox);
 
         // Method 2 to fill data into input box
         await this.UIHelper.enterSequentiallyTextIntoWebElement(this.inputbox, data);
@@ -68,8 +68,6 @@ export class InputPage {
         console.log(valueEntered2);
 
         //Validate data entered is same as expected data
-        await expect(valueEntered2).toBe(data);
-
-        
-    }
+        await this.UIHelper.assertElementText(this.inputbox, data);
+    } 
 }

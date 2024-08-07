@@ -1,4 +1,5 @@
 import { Locator } from '@playwright/test';
+import { Page, Frame } from '@playwright/test';
 import path from 'path';
 
 /**
@@ -326,12 +327,34 @@ class UiActionsLib {
     */
     async assertElementText(webElement: Locator, expectedText: string): Promise<void> {
         console.log('Asserting text of element:', webElement);
-        const actualText = await webElement.textContent();
+        const actualText = await this.getAllTextOfInputElement(webElement);
         if (actualText !== expectedText) {
             throw new Error(`Expected text: "${expectedText}", but got: "${actualText}"`);
         }
     }
 
+    /**
+    * Handle JavaScript alerts or prompts.
+    * 
+    * This method listens for a dialog event on the page and performs the specified action
+    * (accept or dismiss) on the alert or prompt. It can also provide a text response if
+    * accepting a prompt.
+    * 
+    * @param page - The Playwright Page object on which the dialog event is triggered.
+    * @param action - The action to perform on the dialog. It can be 'accept' to accept the dialog or 'dismiss' to dismiss it.
+    * @param text - The text to send in response to the prompt. Defaults to an empty string if not provided.
+    * @throws An error if the action cannot be performed or if the dialog event is not fired.
+    */
+    async handleAlert(page: Page, action: 'accept' | 'dismiss', text: string = ''): Promise<void> {
+        console.log('Handling alert with action:', action);
+        page.on('dialog', async dialog => {
+            if (action === 'accept') {
+                await dialog.accept(text);
+            } else if (action === 'dismiss') {
+                await dialog.dismiss();
+            }
+        });
+    }
 }
 
 export default UiActionsLib;
