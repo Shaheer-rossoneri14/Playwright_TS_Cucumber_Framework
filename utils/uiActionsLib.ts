@@ -279,7 +279,7 @@ class UiActionsLib {
     /**
     * Waiting for the element to be visible.
     * 
-    * @param sourceLocator - The Locator of the element to be waited for.
+    * @param webElement - The Locator of the element to be waited for.
     */
     async waitForElementToBeVisible(webElement: Locator, timeout: number = 30000): Promise<void> {
         console.log('Waiting for element to be visible:', webElement);
@@ -289,7 +289,7 @@ class UiActionsLib {
     /**
     * Waiting for the element to be hidden.
     * 
-    * @param sourceLocator - The Locator of the element to be hidden.
+    * @param webElement - The Locator of the element to be hidden.
     */
     async waitForElementToBeHidden(webElement: Locator, timeout: number = 30000): Promise<void> {
         console.log('Waiting for element to be hidden:', webElement);
