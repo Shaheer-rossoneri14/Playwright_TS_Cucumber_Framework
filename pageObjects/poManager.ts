@@ -3,6 +3,7 @@ import { LoginPage } from "./loginPage";
 import { CheckBoxPage } from "./checkboxPage";
 import { DropDownPage } from "./dropdownPage";
 import { InputPage } from "./inputPage";
+import { JsAlertsPage } from "./jsAlertsPage";
 
 /**
  * Page Object Manager (PoManager) class.
@@ -17,6 +18,7 @@ class PoManager {
     checkboxPage: CheckBoxPage;
     dropdownPage: DropDownPage;
     inputPage: InputPage;
+    jsalertPage: JsAlertsPage;
 
     /**
      * Constructs a new instance of the PoManager class.
@@ -29,6 +31,7 @@ class PoManager {
         this.checkboxPage = new CheckBoxPage(this.page); // Initialize the CheckBoxPage object
         this.dropdownPage = new DropDownPage(this.page); // Initialize the DropDownPage object
         this.inputPage = new InputPage(this.page); // Initialize the InputPage object
+        this.jsalertPage = new JsAlertsPage(this.page); // Initialize the JsAlerts object
     }
 
     /**
@@ -65,6 +68,15 @@ class PoManager {
      */
     getInputPage() {
         return this.inputPage; // Return the checkboxPage object
+    }
+
+    /**
+     * Provides access to the JsAlerts object.
+     * 
+     * @returns {JsAlertsPage} - The JsAlertsPage object associated with the current page.
+     */
+    getJsAlertsPage() {
+        return this.jsalertPage; // Return the JsAlerts object
     }
 }
 

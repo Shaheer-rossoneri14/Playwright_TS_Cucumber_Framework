@@ -43,7 +43,9 @@ Once the installation is complete, the framework is ready to be used for writing
 
 ## Usage
 
-_(This section will be added later.)_
+Create your own feature files, step-definitions and page object models as per your application. 
+Make sure to add your page objects in poManager.ts file.
+For api testing, add request and response as json files in the testdata folder. 
 
 ## License
 

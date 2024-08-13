@@ -78,10 +78,10 @@ export class LoginPage {
     }
 
     /**
- * Validates that the user is logged in by checking if the current URL ends with 'secure'.
- * 
- * @returns {Promise<void>} - A promise that resolves when the URL validation is complete.
- */
+     * Validates that the user is logged in by checking if the current URL ends with 'secure'.
+     * 
+     * @returns {Promise<void>} - A promise that resolves when the URL validation is complete.
+     */
     async validateUserIsLoggedIn() {
         const currentUrl = this.page.url(); // Get the current URL
         await expect(currentUrl).toMatch(/secure$/); // Verify that the URL ends with 'secure'

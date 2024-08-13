@@ -3,6 +3,8 @@ import PoManager from '../../pageObjects/poManager';
 import { CustomWorld } from '../support/hooks';
 import * as fs from 'fs';
 import * as path from 'path';
+import { expect } from '@playwright/test';
+
 
 /**UI Steps */
 // Store a single instance of PoManager in the world context
@@ -26,19 +28,52 @@ Given(/^I am on the (.*) page$/, async function (this: CustomWorld, pageName: st
         case 'input':
             await poManager.getInputPage().goTo();
             break;
+        case 'javascript alerts':
+            await poManager.getJsAlertsPage().goTo();
+            break;
         default:
             throw new Error(`Page "${pageName}" is not defined in step definitions.`);
     }
 });
 
 // When Steps
+When(/^I click on the (.*) button$/, async function (this: CustomWorld, buttonName: string) {
+    const poManager = this.poManager;
+    // console.log(`Button Name: ${buttonName}`); // Log button name for debugging
+    switch (buttonName.toLowerCase()) {
+        case 'logout':
+            await poManager.getLoginPage().clickLogoutButton();
+            break;
+        default:
+            throw new Error(`Button "${buttonName}" is not defined in step definitions.`);
+    }
+});
+
 When(/^I login with (.+) and (.+)$/, async function (this: CustomWorld, username: string, password: string) {
     await this.poManager.getLoginPage().validLogin(username, password);
 });
 
-When(/^I click on the Logout button$/, async function (this: CustomWorld) {
-    await this.poManager.getLoginPage().clickLogoutButton();
-})
+When(/^I click on (.+) and I (.+) the alert with text (.*)$/, async function (this: CustomWorld, alertBtn: string, alertAction: string, alertText: string) {
+    const poManager = this.poManager;
+    const actionType = alertAction.toLowerCase();
+    console.log(`Alert btn is: ${alertBtn}`);
+    await this.page.waitForTimeout(5000);
+    if (alertBtn === 'jsalert'){
+        console.log(`Inside jsalert`);
+        await poManager.getJsAlertsPage().clickOnJsAlertAndHandle(actionType, alertText);
+    }
+    else if (alertBtn === 'jsconfirm'){
+        console.log(`Inside jsconfirm`);
+        await poManager.getJsAlertsPage().clickOnJsConfirmAndHandle(actionType, alertText);
+    }
+    else if (alertBtn === 'jsprompt'){
+        console.log(`Inside jsprompt`);
+        await poManager.getJsAlertsPage().clickOnJsPromptAndHandle(actionType, alertText);
+    }
+    else {
+        throw new Error(`Unsupported alert button type: ${alertBtn}`);
+    }
+});
 
 // Then Steps
 Then(/^I should see a flash message saying (.*)$/, async function (this: CustomWorld, loginmessage: string) {
@@ -60,6 +95,12 @@ Then(/^I perform actions and validate the dropdown$/, async function (this: Cust
 Then(/^I enter (.+) into input box$/, async function (this: CustomWorld, data: string) {
     await this.poManager.getInputPage().actionsAndValidationsOnInputBox(data);
 })
+
+Then(/^I should see the result message as (.*)$/, async function (this: CustomWorld, expectedMessage: string) {
+    const actualMessage = await this.poManager.getJsAlertsPage().getResultText();
+    console.log(`Actual Text: ${actualMessage}`)
+    await expect(actualMessage).toBe(expectedMessage);
+});
 
 /**API steps */
 let requestData: any;

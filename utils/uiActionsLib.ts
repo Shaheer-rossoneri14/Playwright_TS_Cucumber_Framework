@@ -345,13 +345,17 @@ class UiActionsLib {
     * @param text - The text to send in response to the prompt. Defaults to an empty string if not provided.
     * @throws An error if the action cannot be performed or if the dialog event is not fired.
     */
-    async handleAlert(page: Page, action: 'accept' | 'dismiss', text: string = ''): Promise<void> {
-        console.log('Handling alert with action:', action);
+    async handleAlert(page: Page, action: string, text: string): Promise<void> {
+        console.log(`Handling alert with action and text: ${action} and ${text}`);
         page.on('dialog', async dialog => {
             if (action === 'accept') {
+                console.log(`Entering text: ${text}`)
                 await dialog.accept(text);
             } else if (action === 'dismiss') {
+                console.log(`Dismissing alert`)
                 await dialog.dismiss();
+            } else {
+                throw new Error(`Unsupported action: ${action}`);
             }
         });
     }
