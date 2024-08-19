@@ -1,5 +1,4 @@
 import { Given, When, Then } from '@cucumber/cucumber';
-import PoManager from '../../pageObjects/poManager';
 import { CustomWorld } from '../support/hooks';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -57,7 +56,6 @@ When(/^I click on (.+) and I (.+) the alert with text (.*)$/, async function (th
     const poManager = this.poManager;
     const actionType = alertAction.toLowerCase();
     console.log(`Alert btn is: ${alertBtn}`);
-    await this.page.waitForTimeout(5000);
     if (alertBtn === 'jsalert'){
         console.log(`Inside jsalert`);
         await poManager.getJsAlertsPage().clickOnJsAlertAndHandle(actionType, alertText);

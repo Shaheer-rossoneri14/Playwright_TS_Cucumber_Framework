@@ -1,4 +1,4 @@
-@ui @test
+@ui
 Feature: JavaScript Alerts Handling
 
     Scenario Outline: Handle JavaScript Alerts
@@ -13,5 +13,3 @@ Feature: JavaScript Alerts Handling
         | jsconfirm  | accept      |           | You clicked: Ok                   |
         | jsprompt   | accept      | Hello     | You entered: Hello                |
         | jsprompt   | dismiss     |           | You entered: null                 |
-        | jsprompt12 | accept      |           |                                   |
-        | jsalert    | deny        |           |                                   |

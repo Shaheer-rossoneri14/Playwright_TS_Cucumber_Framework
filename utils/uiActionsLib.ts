@@ -1,5 +1,5 @@
 import { Locator } from '@playwright/test';
-import { Page, Frame } from '@playwright/test';
+import { Page } from '@playwright/test';
 import path from 'path';
 
 /**
