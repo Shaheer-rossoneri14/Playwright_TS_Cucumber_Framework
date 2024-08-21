@@ -4,6 +4,7 @@ generate({
     jsonDir: 'reports/',
     reportPath: 'reports',
     reportName: 'Cucumber-Playwright report',
+    pageTitle: "Internet Heroku Page Test Report",
     displayDuration: true,
     metadata: {
         browser: {

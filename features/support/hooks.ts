@@ -1,11 +1,11 @@
-import { Before, After, setWorldConstructor, Status } from '@cucumber/cucumber';
+import { Before, After, setWorldConstructor, Status, BeforeAll } from '@cucumber/cucumber';
 import { Page, Browser, request, APIRequestContext } from '@playwright/test';
 import BrowserUtils from '../../utils/browserUtils';
 import PoManager from '../../pageObjects/poManager';
-import path from 'path';
-import fs from 'fs';
 import * as dotenv from 'dotenv';
-import ApiActionLib from '../../utils/apiActionsLib'; 
+import ApiActionLib from '../../utils/apiActionsLib';
+import { ensureDirectoryExists, sanitizeFilename, createScreenshotPath } from '../../utils/helperUtils';
+
 
 // Load environment variables from .env file
 dotenv.config();
@@ -49,20 +49,13 @@ Before({ tags: '@api' }, async function (this: CustomWorld) {
 
 // Save screenshot if UI scenario failed, Close page and browser after each UI scenario
 After({ tags: '@ui' }, async function (this: CustomWorld, scenario) {
-    // Check if the scenario has failed
     if (scenario.result?.status === Status.FAILED) {
-        // Create a unique file name for the screenshot
-        const screenshotPath = path.join('screenshots', `screenshot-${Date.now()}.png`);
-        // Ensure the screenshots directory exists
-        if (!fs.existsSync('screenshots')) {
-            fs.mkdirSync('screenshots');
-        }
-        // Capture and save the screenshot
+        const scenarioName = sanitizeFilename(scenario.pickle.name);
+        const screenshotPath = createScreenshotPath(scenarioName);
+        ensureDirectoryExists('screenshots');
         await this.page.screenshot({ path: screenshotPath });
         console.log(`Screenshot saved at: ${screenshotPath}`);
     }
-
-    // Close the page and browser
     await this.page.close();
     await this.browser.close();
 });

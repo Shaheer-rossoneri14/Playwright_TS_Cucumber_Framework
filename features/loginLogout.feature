@@ -1,4 +1,4 @@
-@ui
+@ui @test
 Feature: The Login and Logout functionality of Internet Guinea Pig Website
 
     Scenario Outline: As a user, I can log into the secure area and logout of the secure area using valid credentials

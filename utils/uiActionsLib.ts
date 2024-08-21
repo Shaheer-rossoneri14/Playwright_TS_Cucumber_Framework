@@ -14,8 +14,13 @@ class UiActionsLib {
      * @param inputText - The text to be entered.
      */
     async enterTextIntoWebElement(webElement: Locator, inputText: string): Promise<void> {
-        console.log('Entering text into element:', webElement);
-        await webElement.fill(inputText);
+        try {
+            console.log('Entering text into element:', webElement);
+            await webElement.fill(inputText);
+        } catch (error) {
+            console.error('Error entering text into element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -25,8 +30,13 @@ class UiActionsLib {
      * @param inputText - The text to be entered sequentially.
      */
     async enterSequentiallyTextIntoWebElement(webElement: Locator, inputText: string): Promise<void> {
-        console.log('Entering text sequentially into element:', webElement);
-        await webElement.pressSequentially(inputText);
+        try {
+            console.log('Entering text sequentially into element:', webElement);
+            await webElement.pressSequentially(inputText);
+        } catch (error) {
+            console.error('Error entering text sequentially into element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -35,8 +45,13 @@ class UiActionsLib {
       * @param webElement - The web element to clear text from.
       */
     async clearTextFromInput(webElement: Locator): Promise<void> {
-        console.log('Clearing text from input element:', webElement);
-        await webElement.fill('');
+        try {
+            console.log('Clearing text from input element:', webElement);
+            await webElement.fill('');
+        } catch (error) {
+            console.error('Error clearing text from input element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -46,8 +61,13 @@ class UiActionsLib {
      * @param keystroke - The keystroke to be performed. It can be shortcuts as well.
      */
     async singleKeystroke(webElement: Locator, keystroke: string): Promise<void> {
-        console.log('Performing keystroke on element:', keystroke);
-        await webElement.press(keystroke);
+        try {
+            console.log('Performing keystroke on element:', keystroke);
+            await webElement.press(keystroke);
+        } catch (error) {
+            console.error('Error performing keystroke on element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -57,12 +77,17 @@ class UiActionsLib {
      * @param toCheck - Desired state, true to check and false to uncheck.
      */
     async checkUncheckCheckBox(checkBox: Locator, toCheck: boolean): Promise<void> {
-        const isChecked = await checkBox.isChecked();
-        if (toCheck !== isChecked) {
-            await checkBox.setChecked(toCheck);
-            console.log(`Checkbox set to ${toCheck ? 'checked' : 'unchecked'}`);
-        } else {
-            console.log(`Checkbox was already ${toCheck ? 'checked' : 'unchecked'}`);
+        try {
+            const isChecked = await checkBox.isChecked();
+            if (toCheck !== isChecked) {
+                await checkBox.setChecked(toCheck);
+                console.log(`Checkbox set to ${toCheck ? 'checked' : 'unchecked'}`);
+            } else {
+                console.log(`Checkbox was already ${toCheck ? 'checked' : 'unchecked'}`);
+            }
+        } catch (error) {
+            console.error('Error checking/unchecking checkbox:', error);
+            throw error;
         }
     }
 
@@ -72,12 +97,17 @@ class UiActionsLib {
      * @param radioBtn - The radio button element.
      */
     async checkRadioButton(radioBtn: Locator): Promise<void> {
-        const isChecked = await radioBtn.isChecked();
-        if (!isChecked) {
-            await radioBtn.check();
-            console.log('Radio button checked');
-        } else {
-            console.log('Radio button was already checked');
+        try {
+            const isChecked = await radioBtn.isChecked();
+            if (!isChecked) {
+                await radioBtn.check();
+                console.log('Radio button checked');
+            } else {
+                console.log('Radio button was already checked');
+            }
+        } catch (error) {
+            console.error('Error checking radio button:', error);
+            throw error;
         }
     }
 
@@ -88,8 +118,13 @@ class UiActionsLib {
      * @returns The text content of the web element.
      */
     async getAllTextOfWebElement(webElement: Locator): Promise<string | null> {
-        console.log('Retrieving text content of element:', webElement);
-        return await webElement.textContent();
+        try {
+            console.log('Retrieving text content of element:', webElement);
+            return await webElement.textContent();
+        } catch (error) {
+            console.error('Error retrieving text content of element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -99,8 +134,13 @@ class UiActionsLib {
      * @returns The text content of the web element.
      */
     async getAllTextOfInputElement(webElement: Locator): Promise<string | null> {
-        console.log('Retrieving text content of element:', webElement);
-        return await webElement.inputValue();
+        try {
+            console.log('Retrieving text content of element:', webElement);
+            return await webElement.inputValue();
+        } catch (error) {
+            console.error('Error retrieving text content of element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -119,6 +159,7 @@ class UiActionsLib {
             throw error;
         }
     }
+
 
     /**
      * Select a dropdown option by its visible label.
@@ -160,8 +201,13 @@ class UiActionsLib {
      * @param webElement - The web element to click on.
      */
     async singleClickOnWebElement(webElement: Locator): Promise<void> {
-        console.log('Clicking on element:', webElement);
-        await webElement.click();
+        try {
+            console.log('Clicking on element:', webElement);
+            await webElement.click();
+        } catch (error) {
+            console.error('Error clicking on element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -170,8 +216,13 @@ class UiActionsLib {
      * @param webElement - The web element to double click on.
      */
     async doubleClickOnWebElement(webElement: Locator): Promise<void> {
-        console.log('Double clicking on element:', webElement);
-        await webElement.dblclick();
+        try {
+            console.log('Double clicking on element:', webElement);
+            await webElement.dblclick();
+        } catch (error) {
+            console.error('Error double clicking on element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -180,8 +231,13 @@ class UiActionsLib {
      * @param webElement - The web element to right click on.
      */
     async rightClickOnWebElement(webElement: Locator): Promise<void> {
-        console.log('Right clicking on element:', webElement);
-        await webElement.click({ button: 'right' });
+        try {
+            console.log('Right clicking on element:', webElement);
+            await webElement.click({ button: 'right' });
+        } catch (error) {
+            console.error('Error right clicking on element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -190,8 +246,13 @@ class UiActionsLib {
      * @param webElement - The web element to hover over.
      */
     async hoverOnWebElement(webElement: Locator): Promise<void> {
-        console.log('Hovering over element:', webElement);
-        await webElement.hover();
+        try {
+            console.log('Hovering over element:', webElement);
+            await webElement.hover();
+        } catch (error) {
+            console.error('Error hovering over element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -200,8 +261,13 @@ class UiActionsLib {
      * @param webElement - The web element to force click on.
      */
     async forceClickOnWebElement(webElement: Locator): Promise<void> {
-        console.log('Force clicking on element:', webElement);
-        await webElement.click({ force: true });
+        try {
+            console.log('Force clicking on element:', webElement);
+            await webElement.click({ force: true });
+        } catch (error) {
+            console.error('Error force clicking on element:', error);
+            throw error;
+        }
     }
 
     /**
@@ -283,7 +349,12 @@ class UiActionsLib {
     */
     async waitForElementToBeVisible(webElement: Locator, timeout: number = 30000): Promise<void> {
         console.log('Waiting for element to be visible:', webElement);
-        await webElement.waitFor({ state: 'visible', timeout });
+        try {
+            await webElement.waitFor({ state: 'visible', timeout });
+        } catch (error) {
+            console.error(`Error waiting for element to be visible:`, error);
+            throw new Error(`Element did not become visible within ${timeout} ms`);
+        }
     }
 
     /**
@@ -293,7 +364,12 @@ class UiActionsLib {
     */
     async waitForElementToBeHidden(webElement: Locator, timeout: number = 30000): Promise<void> {
         console.log('Waiting for element to be hidden:', webElement);
-        await webElement.waitFor({ state: 'hidden', timeout });
+        try {
+            await webElement.waitFor({ state: 'hidden', timeout });
+        } catch (error) {
+            console.error(`Error waiting for element to be hidden:`, error);
+            throw new Error(`Element did not become hidden within ${timeout} ms`);
+        }
     }
 
     /**
@@ -303,7 +379,12 @@ class UiActionsLib {
     */
     async scrollToWebElement(webElement: Locator): Promise<void> {
         console.log('Scrolling to element:', webElement);
-        await webElement.scrollIntoViewIfNeeded();
+        try {
+            await webElement.scrollIntoViewIfNeeded();
+        } catch (error) {
+            console.error('Error scrolling to element:', error);
+            throw new Error('Failed to scroll to the element.');
+        }
     }
 
     /**
@@ -315,7 +396,12 @@ class UiActionsLib {
     */
     async getAttributeValue(webElement: Locator, attribute: string): Promise<string | null> {
         console.log('Getting attribute value:', attribute, 'from element:', webElement);
-        return await webElement.getAttribute(attribute);
+        try {
+            return await webElement.getAttribute(attribute);
+        } catch (error) {
+            console.error('Error getting attribute value:', error);
+            throw new Error(`Failed to retrieve the value of attribute "${attribute}"`);
+        }
     }
 
     /**
@@ -327,9 +413,14 @@ class UiActionsLib {
     */
     async assertElementText(webElement: Locator, expectedText: string): Promise<void> {
         console.log('Asserting text of element:', webElement);
-        const actualText = await this.getAllTextOfInputElement(webElement);
-        if (actualText !== expectedText) {
-            throw new Error(`Expected text: "${expectedText}", but got: "${actualText}"`);
+        try {
+            const actualText = await this.getAllTextOfInputElement(webElement);
+            if (actualText !== expectedText) {
+                throw new Error(`Expected text: "${expectedText}", but got: "${actualText}"`);
+            }
+        } catch (error) {
+            console.error('Error asserting element text:', error);
+            throw error;
         }
     }
 
@@ -347,17 +438,22 @@ class UiActionsLib {
     */
     async handleAlert(page: Page, action: string, text: string): Promise<void> {
         console.log(`Handling alert with action and text: ${action} and ${text}`);
-        page.on('dialog', async dialog => {
-            if (action === 'accept') {
-                console.log(`Entering text: ${text}`)
-                await dialog.accept(text);
-            } else if (action === 'dismiss') {
-                console.log(`Dismissing alert`)
-                await dialog.dismiss();
-            } else {
-                throw new Error(`Unsupported action: ${action}`);
-            }
-        });
+        try {
+            page.on('dialog', async dialog => {
+                if (action === 'accept') {
+                    console.log(`Entering text: ${text}`)
+                    await dialog.accept(text);
+                } else if (action === 'dismiss') {
+                    console.log(`Dismissing alert`)
+                    await dialog.dismiss();
+                } else {
+                    throw new Error(`Unsupported action: ${action}`);
+                }
+            });
+        } catch (error){
+            console.error('Error handling alert:', error);
+            throw new Error(`Failed to handle alert with action: ${action}`);
+        }
     }
 }
 

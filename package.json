@@ -7,9 +7,7 @@
     "test-ui-chrome": "cross-env BROWSER=chromium npx cucumber-js --config=cucumber.js",
     "test-ui-firefox": "cross-env BROWSER=firefox npx cucumber-js ----config=cucumber.js",
     "test-ui-webkit": "cross-env BROWSER=webkit npx cucumber-js --config=cucumber.js",
-    "test-ui-edge": "cross-env BROWSER=msedge npx cucumber-js --config=cucumber.js",
-    "test-api": "cross-env BROWSER=msedge npx cucumber-js --config=cucumber.js",
-    "test-ui": "cross-env BROWSER=chromium npx cucumber-js  --config=cucumber.js"
+    "test-ui-edge": "cross-env BROWSER=msedge npx cucumber-js --config=cucumber.js"
   },
   "keywords": [
     "cucumber",
@@ -22,7 +20,6 @@
   "devDependencies": {
     "@playwright/test": "^1.45.3",
     "@types/chai": "^4.3.17",
-    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.0.0",
     "cross-env": "^7.0.3",
     "ts-node": "^10.9.2",
@@ -30,13 +27,9 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "^10.8.0",
-    "allure-commandline": "^2.29.0",
-    "allure-cucumberjs": "^3.0.0-beta.7",
-    "allure-playwright": "^3.0.0-beta.7",
     "chai": "^5.1.1",
     "cucumber-html-reporter": "^7.1.1",
     "dotenv": "^16.4.5",
-    "js-yaml": "^4.1.0",
     "multiple-cucumber-html-reporter": "^3.7.0"
   }
 }
