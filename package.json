@@ -1,6 +1,6 @@
 {
   "name": "playwright_cucumber_framework",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "A ready to use Test Automation Framework using cucumber, playwright and typescript",
   "main": "index.js",
   "scripts": {
