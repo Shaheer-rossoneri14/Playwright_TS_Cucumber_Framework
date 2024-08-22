@@ -1,13 +1,13 @@
 {
   "name": "playwright_cucumber_framework",
-  "version": "1.0.0",
+  "version": "0.1",
   "description": "A ready to use Test Automation Framework using cucumber, playwright and typescript",
   "main": "index.js",
   "scripts": {
-    "test-ui-chrome": "cross-env BROWSER=chromium npx cucumber-js --config=cucumber.js",
-    "test-ui-firefox": "cross-env BROWSER=firefox npx cucumber-js ----config=cucumber.js",
-    "test-ui-webkit": "cross-env BROWSER=webkit npx cucumber-js --config=cucumber.js",
-    "test-ui-edge": "cross-env BROWSER=msedge npx cucumber-js --config=cucumber.js"
+    "test-on-chrome": "cross-env BROWSER=chromium npx cucumber-js --config=cucumber.js",
+    "test-on-firefox": "cross-env BROWSER=firefox npx cucumber-js ----config=cucumber.js",
+    "test-on-webkit": "cross-env BROWSER=webkit npx cucumber-js --config=cucumber.js",
+    "test-on-edge": "cross-env BROWSER=msedge npx cucumber-js --config=cucumber.js"
   },
   "keywords": [
     "cucumber",
