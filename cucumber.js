@@ -11,9 +11,9 @@ module.exports = {
             'html:reports/cucumber-report.html',
             'json:reports/cucumber_report.json',
         ],
-        tags: '@api or @ui',
+        tags: '@api or @ui',    // Add tags which you want to run
         defaultTimeout: 60 * 1000,  // 60 seconds
         parallel: 2,  // Run 2 scenarios in parallel
-        requireModule: ['ts-node/register'],  // Ensure TypeScript support
+        requireModule: ['ts-node/register'],  
     }
 };

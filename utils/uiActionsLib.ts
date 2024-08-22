@@ -271,11 +271,11 @@ class UiActionsLib {
     }
 
     /**
-    * Upload a file to an input element.
-    * 
-    * @param webElement - The Locator of the input element.
-    * @param filePath - The path of the file to be uploaded.
-    */
+     * Upload a file to an input element.
+     * 
+     * @param webElement - The Locator of the input element.
+     * @param filePath - The path of the file to be uploaded.
+     */
     async uploadSingleFile(webElement: Locator, filePath: string): Promise<void> {
         console.log('Uploading the file:', filePath);
         const absoluteFilePath = path.join(__dirname, filePath);
@@ -289,11 +289,11 @@ class UiActionsLib {
     }
 
     /**
-    * Upload multiple files to an input element.
-    * 
-    * @param webElement - The Locator of the input element.
-    * @param filePaths - An array of file paths to be uploaded.
-    */
+     * Upload multiple files to an input element.
+     * 
+     * @param webElement - The Locator of the input element.
+     * @param filePaths - An array of file paths to be uploaded.
+     */
     async uploadMultipleFiles(webElement: Locator, filePaths: string[]): Promise<void> {
         console.log('Uploading multiple files to input element:', webElement);
         const absoluteFilePaths = filePaths.map(filePath => path.join(__dirname, filePath));
@@ -308,11 +308,11 @@ class UiActionsLib {
 
 
     /**
-    * Upload a directory to an input element.
-    * 
-    * @param webElement - The Locator of the input element.
-    * @param directoryPath - The path of the directory to be uploaded.
-    */
+     * Upload a directory to an input element.
+     * 
+     * @param webElement - The Locator of the input element.
+     * @param directoryPath - The path of the directory to be uploaded.
+     */
     async uploadDirectory(webElement: Locator, directoryPath: string): Promise<void> {
         console.log('Uploading directory to input element:', webElement);
         const absoluteDirectoryPath = path.join(__dirname, directoryPath);
@@ -326,11 +326,11 @@ class UiActionsLib {
     }
 
     /**
-    * Drag an item and drop it onto another element.
-    * 
-    * @param sourceLocator - The Locator of the item to be dragged.
-    * @param targetLocator - The Locator of the element where the item will be dropped.
-    */
+     * Drag an item and drop it onto another element.
+     * 
+     * @param sourceLocator - The Locator of the item to be dragged.
+     * @param targetLocator - The Locator of the element where the item will be dropped.
+     */
     async dragAndDrop(sourceLocator: Locator, targetLocator: Locator): Promise<void> {
         console.log('Dragging item from:', sourceLocator, 'to:', targetLocator);
         try {
@@ -343,10 +343,10 @@ class UiActionsLib {
     }
 
     /**
-    * Waiting for the element to be visible.
-    * 
-    * @param webElement - The Locator of the element to be waited for.
-    */
+     * Waiting for the element to be visible.
+     * 
+     * @param webElement - The Locator of the element to be waited for.
+     */
     async waitForElementToBeVisible(webElement: Locator, timeout: number = 30000): Promise<void> {
         console.log('Waiting for element to be visible:', webElement);
         try {
@@ -358,10 +358,10 @@ class UiActionsLib {
     }
 
     /**
-    * Waiting for the element to be hidden.
-    * 
-    * @param webElement - The Locator of the element to be hidden.
-    */
+     * Waiting for the element to be hidden.
+     * 
+     * @param webElement - The Locator of the element to be hidden.
+     */
     async waitForElementToBeHidden(webElement: Locator, timeout: number = 30000): Promise<void> {
         console.log('Waiting for element to be hidden:', webElement);
         try {
@@ -373,10 +373,10 @@ class UiActionsLib {
     }
 
     /**
-    * Scroll to an element on the page.
-    * 
-    * @param webElement - The web element to scroll to.
-    */
+     * Scroll to an element on the page.
+     * 
+     * @param webElement - The web element to scroll to.
+     */
     async scrollToWebElement(webElement: Locator): Promise<void> {
         console.log('Scrolling to element:', webElement);
         try {
@@ -388,12 +388,12 @@ class UiActionsLib {
     }
 
     /**
-    * Retrieve the value of a specified attribute from an element.
-    * 
-    * @param webElement - The web element from which to get the attribute value.
-    * @param attribute - The name of the attribute to retrieve.
-    * @returns The value of the specified attribute.
-    */
+     * Retrieve the value of a specified attribute from an element.
+     * 
+     * @param webElement - The web element from which to get the attribute value.
+     * @param attribute - The name of the attribute to retrieve.
+     * @returns The value of the specified attribute.
+     */
     async getAttributeValue(webElement: Locator, attribute: string): Promise<string | null> {
         console.log('Getting attribute value:', attribute, 'from element:', webElement);
         try {
@@ -405,12 +405,12 @@ class UiActionsLib {
     }
 
     /**
-    * Assert that the text content of an element matches the expected text.
-    * 
-    * @param webElement - The web element to check the text of.
-    * @param expectedText - The expected text content.
-    * @throws An error if the actual text does not match the expected text.
-    */
+     * Assert that the text content of an element matches the expected text.
+     * 
+     * @param webElement - The web element to check the text of.
+     * @param expectedText - The expected text content.
+     * @throws An error if the actual text does not match the expected text.
+     */
     async assertElementText(webElement: Locator, expectedText: string): Promise<void> {
         console.log('Asserting text of element:', webElement);
         try {
@@ -425,17 +425,17 @@ class UiActionsLib {
     }
 
     /**
-    * Handle JavaScript alerts or prompts.
-    * 
-    * This method listens for a dialog event on the page and performs the specified action
-    * (accept or dismiss) on the alert or prompt. It can also provide a text response if
-    * accepting a prompt.
-    * 
-    * @param page - The Playwright Page object on which the dialog event is triggered.
-    * @param action - The action to perform on the dialog. It can be 'accept' to accept the dialog or 'dismiss' to dismiss it.
-    * @param text - The text to send in response to the prompt. Defaults to an empty string if not provided.
-    * @throws An error if the action cannot be performed or if the dialog event is not fired.
-    */
+     * Handle JavaScript alerts or prompts.
+     * 
+     * This method listens for a dialog event on the page and performs the specified action
+     * (accept or dismiss) on the alert or prompt. It can also provide a text response if
+     * accepting a prompt.
+     * 
+     * @param page - The Playwright Page object on which the dialog event is triggered.
+     * @param action - The action to perform on the dialog. It can be 'accept' to accept the dialog or 'dismiss' to dismiss it.
+     * @param text - The text to send in response to the prompt. Defaults to an empty string if not provided.
+     * @throws An error if the action cannot be performed or if the dialog event is not fired.
+     */
     async handleAlert(page: Page, action: string, text: string): Promise<void> {
         console.log(`Handling alert with action and text: ${action} and ${text}`);
         try {

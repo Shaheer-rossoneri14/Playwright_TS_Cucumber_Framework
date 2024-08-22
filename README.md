@@ -47,14 +47,4 @@ Create your own feature files, step-definitions and page object models as per yo
 Make sure to add your page objects in poManager.ts file.
 For api testing, add request and response as json files in the testdata folder. 
 
-## License
-
-_(To be filled in later.)_
-
-## Author and Credits
-
-_(To be filled in later.)_
-
-## Contact Information
-
-_(To be filled in later.)_
+Go through the demo files to understand how to write your page objects and step-definition files.
