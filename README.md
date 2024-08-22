@@ -41,6 +41,7 @@ Once the installation is complete, the framework is ready to be used for writing
 ## Project Structure
 Here's a brief overview of the project structure:
 
+```bash
 playwright_cucumber_framework/
 │
 ├── constants/                # Constants used across the framework for configuration or data
@@ -58,7 +59,7 @@ playwright_cucumber_framework/
 ├── cucumber.js               # Cucumber configuration file
 ├── reporter.ts               # Custom reporter configuration
 └── .env                      # Environment configuration
-
+```
 
 ## Usage
 
