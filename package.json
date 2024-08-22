@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-on-chrome": "cross-env BROWSER=chromium npx cucumber-js --config=cucumber.js",
-    "test-on-firefox": "cross-env BROWSER=firefox npx cucumber-js ----config=cucumber.js",
+    "test-on-firefox": "cross-env BROWSER=firefox npx cucumber-js --config=cucumber.js",
     "test-on-webkit": "cross-env BROWSER=webkit npx cucumber-js --config=cucumber.js",
     "test-on-edge": "cross-env BROWSER=msedge npx cucumber-js --config=cucumber.js"
   },

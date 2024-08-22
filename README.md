@@ -100,7 +100,7 @@ Once your feature files, step definitions, and page objects are set up, execute 
 
 - **Example**: To run UI tests on Chrome, use the following command:
 ```bash
-npm run test-ui-chrome
+npm run test-on-chrome
 ```
 
 ### 9. Running Specific Feature Files/Scenarios
